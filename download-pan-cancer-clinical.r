@@ -1,8 +1,7 @@
 library(readxl)
 
-args <- commandArgs(trailingOnly = T)
-datadir <- args[1]
-resultsdir <- args[2]
+datadir <- "."
+resultsdir <- "results"
 
 dir.create(resultsdir, showWarnings = F, recursive = T)
 stopifnot(dir.exists(datadir))
