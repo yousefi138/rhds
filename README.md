@@ -20,6 +20,5 @@ And then run
 
 ```
 bash download-data.sh
-Rscript download-pan-cancer-clinical.r . results
-Rscript run-analysis.r . results
+Rscript download-pan-cancer-clinical.r
 ```
