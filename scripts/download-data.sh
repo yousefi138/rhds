@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -e ## exit immediately if a command exits with a non-zero status
 
 datadir=$1
 resultsdir=$2
@@ -8,13 +8,11 @@ resultsdir=$2
 mkdir -p $datadir
 mkdir -p $resultsdir
 
-url="https://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/HNSC/20160128"
-
 # for loop line by line in data/files.csv
 # Skip the first line
 {
     read
-    while IFS=, read -r filename date time size
+    while IFS=, read -r url filename date time size
     do
         if [ ! -f $datadir/$filename ]; then
             echo "Downloading $filename from $url"
@@ -24,20 +22,23 @@ url="https://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/HNSC/20160128
             curl -L $url/${filename}.md5 -o $datadir/${filename}.md5
         fi
     done
-} < scripts/files.csv
+} < files.csv
 
 # Navigate to the data directory
 workdir=$(pwd)
 cd $datadir
 
+
 # Check md5sums
+echo "" > ${resultsdir}/md5sums.txt
 {
     read
-    while IFS=, read -r filename date time size
+    while IFS=, read -r url filename date time size
     do
-        md5sum -c ${filename}.md5
+        echo "Verifying md5sum for $filename"
+        md5sum -c ${filename}.md5 >> ${resultsdir}/md5sums.txt
     done
-} < $workdir/scripts/files.csv > ${resultsdir}/md5sums.txt
+} < $workdir/files.csv
 
 # Navigate back to the original directory
 cd $workdir
