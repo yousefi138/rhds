@@ -1,5 +1,6 @@
 #!/bin/bash
 
 source config.env
-bash scripts/download-data.sh $datadir $resultsdir
-Rscript scripts/download-pan-cancer-clinical.r $datadir $resultsdir
+cd scripts
+bash download-data.sh $datadir $resultsdir
+Rscript download-pan-cancer-clinical.r $datadir $resultsdir
