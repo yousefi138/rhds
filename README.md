@@ -4,6 +4,8 @@ This repository contains the code for the short course practical sessions.
 
 ## To run
 
+## Setup instructions
+
 Install the following R packages:
 
 ```
@@ -16,10 +18,12 @@ readxl
 here
 ```
 
-And then run
+Next create a `config.env` file based on the `config-template.env` template.
+
+## To run
+
+You can run the entire pipeline using 
 
 ```
-bash download-data.sh
-Rscript download-pan-cancer-clinical.r . results
-Rscript run-analysis.r . results
+bash run-all.sh
 ```
