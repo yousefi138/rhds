@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p docs
+
 source config.env
 cd scripts
 bash download-data.sh $datadir $resultsdir
@@ -8,4 +10,4 @@ Rscript extract-data.r $datadir $resultsdir
 Rscript clean-clinical.r $datadir $resultsdir
 Rscript predict-proteins.r $datadir $resultsdir
 Rscript combine.r $datadir $resultsdir
-Rscript analysis.r $datadir $resultsdir
+quarto render analysis.qmd -P resultsdir:$resultsdir --output-dir ../docs
