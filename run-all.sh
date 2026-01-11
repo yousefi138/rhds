@@ -17,4 +17,4 @@ Rscript clean-clinical.r $datadir $resultsdir
 Rscript predict-proteins.r $datadir $resultsdir
 Rscript combine.r $datadir $resultsdir
 jupyter nbconvert --execute --to html --output-dir $docsdir initial-analysis.ipynb
-quarto render analysis.qmd -P resultsdir:$resultsdir --output-dir $docsdir
+quarto render analysis.qmd --output-dir $docsdir

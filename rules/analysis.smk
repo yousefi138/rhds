@@ -26,7 +26,6 @@ rule analysis:
         f"{resultsdir}/logs/analysis.log"
     shell:
         """
-        quarto render scripts/analysis.qmd \
-            -P resultsdir:"{resultsdir}" --output-dir {docsdir}
+        quarto render scripts/analysis.qmd --output-dir {docsdir}
         """
 
