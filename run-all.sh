@@ -16,4 +16,5 @@ Rscript extract-data.r $datadir $resultsdir
 Rscript clean-clinical.r $datadir $resultsdir
 Rscript predict-proteins.r $datadir $resultsdir
 Rscript combine.r $datadir $resultsdir
+jupyter execture analysis.ipynb
 quarto render analysis.qmd -P resultsdir:$resultsdir --output-dir $docsdir
