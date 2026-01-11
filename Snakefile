@@ -14,7 +14,7 @@ rule all:
     input:
         f"{resultsdir}/md5sums.txt",
         f"{docsdir}/analysis.html",
-        f"{docsdir}/notebook.html"
+        f"{docsdir}/initial-analysis.html"
 
 include: "rules/download-data.smk"
 include: "rules/extract-data.smk"
