@@ -19,7 +19,11 @@ params:
 ```{r globals, results = 'hide'}
 library(ggplot2)
 library(ggrepel)
-resultsdir <- params$resultsdir
+library(here)
+
+readRenviron(here("config.env"))
+datadir <- Sys.getenv("datadir")
+resultsdir <- Sys.getenv("resultsdir")
 ```
 
 ```{r load.data}
