@@ -39,3 +39,13 @@ apptainer run \
     rhds-tcga-r.sif \
     bash run-all.sh
 ```
+
+## Snakemake pipeline
+
+```
+source config.env
+mkdir -p ${docsdir} ${resultsdir} ${datadir}
+snakemake \
+    --cores 1 \
+    --use-apptainer \
+    --apptainer-args "--fakeroot -B ${datadir} -B ${resultsdir} -B ${docsdir} -B $(pwd)" \
