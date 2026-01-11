@@ -10,4 +10,4 @@ Rscript extract-data.r $datadir $resultsdir
 Rscript clean-clinical.r $datadir $resultsdir
 Rscript predict-proteins.r $datadir $resultsdir
 Rscript combine.r $datadir $resultsdir
-quarto render analysis.qmd -P resultsdir:$resultsdir --output-dir ../docs
+jupyter execute analysis.ipynb
