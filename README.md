@@ -46,6 +46,8 @@ apptainer run \
 source config.env
 mkdir -p ${docsdir} ${resultsdir} ${datadir}
 snakemake \
+ --rerun-triggers mtime \
     --cores 1 \
     --use-apptainer \
-    --apptainer-args "--fakeroot -B ${datadir} -B ${resultsdir} -B ${docsdir} -B $(pwd)" \
+    --apptainer-args "--fakeroot -B ${datadir} -B ${resultsdir} -B ${docsdir} -B $(pwd)"
+```
