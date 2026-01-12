@@ -1,35 +1,15 @@
----
-title: "TCGA Head and Neck Cancer Example analysis"
-subtitle: "DNA methytion predicted proteins, tissue type, and cancer progression"
-date: "`r format(Sys.time(), '%d %B %Y')`"
-author: Paul Yousefi
-output:
-  html_document:
-    toc: true
-    highlight: tango
-format:
-  html:
-    embed-resources: true
-params:
-  resultsdir: ""
----
-
-# Load cleaned TCGA clinical and predicted protein level data
-
-```{r globals, results = 'hide'}
 library(ggplot2)
 library(ggrepel)
-resultsdir <- params$resultsdir
-```
 
-```{r load.data}
+args <- commandArgs(trailingOnly = T)
+datadir <- args[1]
+resultsdir <- args[2]
+
 combined.filename <- file.path(resultsdir, "combined-clin-pred-proteins.txt")
 data <- read.table(combined.filename,
   header = T, sep = "\t", stringsAsFactors = F
 )
-```
 
-```{r names, results = 'hide'}
 protein.names <-
   subset(
     meffonym::meffonym.models(full = T),
@@ -38,11 +18,9 @@ protein.names <-
 protein.names <- make.names(protein.names)
 
 table(protein.names %in% colnames(data))
-```
 
 ## Run glms for association between proteins levels and tissue type (tumor vs. normal)
 
-```{r tissue}
 ## define glm formulae with pred.proteins as predictors of 'tumor.or.normal'
 ## tissue i.e. tumor.or.normal ~ pred.protein
 formulae <- sapply(protein.names, function(i) {
@@ -73,11 +51,9 @@ fit.coefs <- {
 }
 
 bonferroni <- -log10(0.05 / length(fit))
-```
 
 ### Visualize results
 
-```{r tissue.figs}
 fit.coefs |>
   ggplot(aes(x = pred.protein, y = -log10(p.value))) +
   geom_point() +
@@ -103,13 +79,11 @@ fit.coefs |>
     linetype = "dashed"
   )
 
-```
 
 ## Run glms for association between proteins levels and progression free interval (PFI)
 
-This analysis should be restricted to measurements taken from tumor samples
+# This analysis should be restricted to measurements taken from tumor samples
 
-```{r pfi}
 tumor.data <- subset(data, tumor == 1)
 
 ## define glm formulae with pred.proteins as predictors of pfi
@@ -140,11 +114,9 @@ fit.coefs <- {
     p.value = x[, "Pr(>|z|)"]
   )
 }
-```
 
 ### Visualize results
 
-```{r pfi.figs}
 fit.coefs |>
   ggplot(aes(x = pred.protein, y = -log10(p.value))) +
   geom_point() +
@@ -169,4 +141,4 @@ fit.coefs |>
     yintercept = bonferroni,
     linetype = "dashed"
   )
-```
+  
