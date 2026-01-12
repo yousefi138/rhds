@@ -6,24 +6,18 @@ This repository contains the code for the short course practical sessions.
 
 ## Setup instructions
 
-Install the following R packages:
+Use Conda / Mamba to create an R environment and then install the R packages from the installation script.
 
 ```
-perishky/meffonym
-data.table
-R.utils
-ggplot2
-ggrepel
-readxl
-here
+mamba env create -f environment.yml
+Rscript install.r
 ```
 
 Next create a `config.env` file based on the `config-template.env` template.
 
 ## To run
 
-You can run the entire pipeline using 
-
 ```
-bash run-all.sh
+bash download-data.sh
+Rscript download-pan-cancer-clinical.r
 ```
